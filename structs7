@@ -1,0 +1,33 @@
+package main
+
+import "fmt"
+
+type Animal struct {
+	Nome    string
+	Especie string
+	Idade   int
+	Som     string
+}
+
+func (a *Animal) ModificarSom(novoSom string) {
+	a.Som = novoSom
+}
+
+func (a Animal) EmitirSom() {
+	fmt.Printf("%s, o %s, faz o som: %s\n", a.Nome, a.Especie, a.Som)
+}
+
+func main() {
+	animal := Animal{
+		Nome:    "Rex",
+		Especie: "Cachorro",
+		Idade:   5,
+		Som:     "Latido",
+	}
+
+	animal.EmitirSom()
+
+	animal.ModificarSom("Miado")
+
+	animal.EmitirSom()
+}
