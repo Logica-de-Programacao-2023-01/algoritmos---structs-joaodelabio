@@ -1,0 +1,56 @@
+package main
+
+import (
+	"fmt"
+)
+
+type Filme struct {
+	Titulo     string
+	Diretor    string
+	Ano        int
+	Avaliacoes []int
+}
+
+func (f *Filme) AdicionarAvaliacao(avaliacao int) {
+	f.Avaliacoes = append(f.Avaliacoes, avaliacao)
+}
+
+func (f *Filme) RemoverAvaliacao(indice int) {
+	if indice >= 0 && indice < len(f.Avaliacoes) {
+		f.Avaliacoes = append(f.Avaliacoes[:indice], f.Avaliacoes[indice+1:]...)
+	}
+}
+
+func (f Filme) CalcularMediaAvaliacoes() float64 {
+	soma := 0
+
+	for _, avaliacao := range f.Avaliacoes {
+		soma += avaliacao
+	}
+
+	media := float64(soma) / float64(len(f.Avaliacoes))
+	return media
+}
+
+func (f Filme) ImprimirInformacoes() {
+	fmt.Println("Título:", f.Titulo)
+	fmt.Println("Diretor:", f.Diretor)
+	fmt.Println("Ano:", f.Ano)
+	fmt.Println("Média das avaliações:", f.CalcularMediaAvaliacoes())
+}
+
+func main() {
+	filme := Filme{
+		Titulo:     "O Poderoso Chefão",
+		Diretor:    "Francis Ford Coppola",
+		Ano:        1972,
+		Avaliacoes: []int{9, 10, 8, 9, 9},
+	}
+
+	filme.ImprimirInformacoes()
+
+	filme.AdicionarAvaliacao(7)
+	filme.RemoverAvaliacao(2)
+
+	filme.ImprimirInformacoes()
+}
